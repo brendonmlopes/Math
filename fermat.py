@@ -1,3 +1,17 @@
+####Fermat's Diophantine equations rootfinder
+#### by Brendon Maia Lopes - brendonmaial@poli.ufrj.br
+####06/2021
+
+#There are still some kinks to work out when it comes to
+#counting how many roots were calculated, but I'll fix that
+#on a later version
+
+#As of 23/06/2021, there are 4 types of calculations
+##### 0 - Search every solution for non-negative integers up to an upperbound, including trivial ones
+##### 1 - Search every solution for non-negative integers up to an upperbound, excluding trivial ones
+##### 2 - Make a scatterplot with every solution up to an upperbound, giving each point the coordinates (a,b)
+##### 3 - Search every solution to one specific value of 'c'
+
 import matplotlib.pyplot as plt
 
 started = False
@@ -8,6 +22,10 @@ choice = 0
 trivialCount=0
 nonTrivialCount=0
     
+#This function - 'fermat()' -  is behind almost all the math of the program, deals directly
+#with the diophantine equation. It loops for every 'a' and 'b' values in the equation
+#a²+b² = c² and it checks if there is an integer 'c' that satisfies it.
+
 def fermat(c,maxval):
     global trivialCount
     global nonTrivialCount
@@ -44,21 +62,25 @@ def fermat(c,maxval):
                     print(str(a)+'² + '+str(b)+'² = ' + str(c) +'²\n'+20*'-')
                     nonTrivialCount+=1
 
+####This function runs fermat() for one specific value of 'c'
 def specific():
     c = input('a²+b² = c²\n\tc = ')
     fermat(c,c)
 
+####Welcome function
 def begin():
     print('                                                                                                                                                                                    \n                                 :::::.                               .:::                       ,::::,                                                          .::::,             \n                               ;!+;;;;*?,                             ,+S@,                    :!+;;;;*?:                                                      ,!+;;;;+?+           \n                               ..:;;;;*?,               :+              ?@,                     .:;;;;+?:                                                       .:;;;;+?+           \n        ,:!!!!!!!!*,.          *S!****;,                %@.             ?@;:!!!!!!!:,          ;S!****+,.        .,,,,,,,,,,,,,,,.        .:*!!!!!!::%!        :S?****+,.           \n        ;+  ......:@?          ;*++++++*.         ......%@,......       ?@!+.     .+**;        :**+++++*,        ;***************,      :***.      ;*@S        ,**+++++*:           \n        ,:;+!!!!!!?@?                            +!!!!!!#@?!!!!!!.      ?@.         ,@?                                                 *@:          ..                             \n      +?+;;:      .@?                                   %@.             ?@.         ,@?                          ;!!!!!!!!!!!!!!!,      *@:                                         \n      ?@,         ,@?                                   %@.             ?@*+       +*!;                          ................       :!*+.        +;                             \n      .,*!!!!!!!!!*,;!:                                 ,,            :!%S;:!!!!!!!:,                                                     ,:!!!!!!!!!:,                             \n                                                                                                                                                                                    \n                                                                                                                                                                                    \n                                                              ')
     print('This is the Fermat Diophantine rootfinder software')
     print('Written by Brendon Maia Lopes - brendonmaial@poli.ufrj.br')
     print('\n'+20*'-'+'\na²+b²=c²')
 
+####Menu
 def menu():
     print(20*'-'+'\n0 - Find all roots \n1 - Find all non-Trivial roots \n2 - Plot roots \n3 - Find roots for specific \'c\' value\n')
     global choice
     choice = int(input(20*'-'+'\nChoose option:'))
-    
+
+####This function decides what's to be done after the decision in menu()
 def run():
     if choice!=3:
         rangeInput = input('Keep iterating until:')
@@ -78,6 +100,7 @@ def run():
     if(choice!=2):
         print('Number of roots calculated:\n\tTrivial:'+str(trivialCount)+'\n\tNon trivial:'+str(nonTrivialCount)+'\n\tTotal:'+str(trivialCount+nonTrivialCount))
 
+####main function
 def main():
     global started
     if(not started):
@@ -85,10 +108,10 @@ def main():
     started = True
     menu()
     run()
-    
+
+####Keep looping and don't halt for errors
 while __name__ == '__main__':
     try:
         main()
     except:
         main()
-        
