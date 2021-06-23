@@ -103,11 +103,16 @@ def run():
 ####main function
 def main():
     global started
+    global trivialCount
+    global nonTrivialCount
     if(not started):
         begin()
     started = True
     menu()
     run()
+    trivialCount = 0
+    nonTrivialCount = 0
+    
 
 ####Keep looping and don't halt for errors
 while __name__ == '__main__':
